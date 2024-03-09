@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "220249913465",
+    "project_id": "kakuro-game-android",
+    "storage_bucket": "kakuro-game-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220249913465:android:b3bb2be97cc780577e7ca8",
+        "android_client_info": {
+          "package_name": "com.example.kakuro_game_android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPFjQ1455Zdu7vGag-M3VjFh5FMuhHOpM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
