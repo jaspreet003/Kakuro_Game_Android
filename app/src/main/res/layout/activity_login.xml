@@ -6,25 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:background="@drawable/background_img"
+    android:backgroundTint=""
     >
     <!-- Logo Image -->
     <ImageView
         android:id="@+id/logo_image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:src="@drawable/logo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/login_layout"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="Logo"
         android:background="@android:color/transparent"
         />
     <!-- Login Layout -->
     <LinearLayout
         android:id="@+id/login_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
@@ -40,9 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:textColorHint="#787272"
             android:inputType="textEmailAddress"
             android:background="@drawable/textbox_shape"
-            android:padding="7dp"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
             />
         <!-- Password Input Field -->
         <EditText
@@ -50,10 +53,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:textColorHint="#787272"
             android:inputType="textPassword"
             android:layout_marginTop="5dp"
             android:background="@drawable/textbox_shape"
-            android:padding="7dp"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
             />
         <!-- Login Button -->
         <Button
@@ -61,44 +66,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"
+            android:textSize="20dp"
             android:background="@drawable/button_shape"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             />
-        <!-- No account? Click to register -->
-        <TextView
-            android:id="@+id/register_textview"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No account? Click to register"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:textColor="#007FFF"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
-            android:onClick="onRegisterClick" />
-        <!-- Register Button -->
-        <Button
-            android:id="@+id/register_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Register"
-            android:background="@drawable/button_shape"
-            />
+            >
+
+            <TextView
+                android:id="@+id/noAccount_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No account?"
+                android:textColor="#007FFF"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/register_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Click to register"
+                android:textColor="#007FFF"
+                android:textStyle="italic"
+                />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/guest_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Or play as a guest"
+            android:text="OR"
             android:gravity="center"
             android:textColor="#007FFF"
             android:textStyle="bold"
-            android:paddingTop="8dp" />
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:textSize="15sp"/>
         <!-- Guest Button -->
         <Button
             android:id="@+id/guest_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guest Play"
+            android:text="Play As Guest"
+            android:textSize="20dp"
             android:background="@drawable/button_shape"
             />
+        <!-- No account? Click to register -->
+
+
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
