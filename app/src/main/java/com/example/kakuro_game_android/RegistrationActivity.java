@@ -17,11 +17,15 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.ktx.Firebase;
+
+import model.Player;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText edTextEmail, edTextPassword;
+    EditText edTextEmail, edTextPassword, edTextUsername;
     Button btnRegister;
 
     FirebaseAuth mAuth;
@@ -33,6 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         edTextEmail = findViewById(R.id.edEmail);
         edTextPassword = findViewById(R.id.edPassword);
+        edTextUsername = findViewById(R.id.edUserName);
 
         btnRegister = findViewById(R.id.btnRegister);
 
@@ -41,9 +46,15 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, password;
+                String email, password, username;
                 email = String.valueOf(edTextEmail.getText());
                 password = String.valueOf(edTextPassword.getText());
+                username = String.valueOf(edTextUsername.getText());
+
+                if (TextUtils.isEmpty(username)) {
+                    Toast.makeText(RegistrationActivity.this, "Enter username", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(RegistrationActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
@@ -57,26 +68,32 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
                 mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                if (firebaseUser != null) {
+                                    String accountId = firebaseUser.getUid();
 
-                                    Toast.makeText(RegistrationActivity.this, "Account created successfully !.",
-                                            Toast.LENGTH_SHORT).show();
+                                    Player.createAndSavePlayer(username, accountId, new Player.OnPlayerCreatedListener() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Toast.makeText(RegistrationActivity.this, "Player created successfully!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
 
-                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegistrationActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-
+                                        @Override
+                                        public void onError(String error) {
+                                            Toast.makeText(RegistrationActivity.this, "Failed to create player: " + error, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
+                            } else {
+                                Toast.makeText(RegistrationActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             }
                         });
+
             }
         });
 
