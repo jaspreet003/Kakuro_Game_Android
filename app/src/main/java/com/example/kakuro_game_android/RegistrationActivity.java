@@ -36,6 +36,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         btnRegister = findViewById(R.id.btnRegister);
 
+        mAuth = FirebaseAuth.getInstance();
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
