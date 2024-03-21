@@ -7,13 +7,14 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
 import model.DiagonalSumCellView;
 import model.Grid;
 
-public class GameplayActivity extends AppCompatActivity {
+public class GameplayActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +64,18 @@ public class GameplayActivity extends AppCompatActivity {
                     TextView cellView = new TextView(this);
                     cellView.setLayoutParams(params);
                     cellView.setBackgroundResource(R.drawable.cell_background);
+
+                    cellView.setOnClickListener(this);
                     // You can set an OnClickListener here to handle user input
                     gridLayout.addView(cellView);
                 }
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        v.setBackgroundColor(Color.GREEN);
     }
 
 }
