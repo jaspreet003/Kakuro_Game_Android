@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.view.View;
 
 import com.example.kakuro_game_android.R;
 
 public class DiagonalSumCellView extends View {
-    private Paint paint;
+    private Paint linePaint;
+    private Paint textPaint;
     private String verticalSum;
     private String horizontalSum;
     private int textSize;
@@ -22,10 +24,18 @@ public class DiagonalSumCellView extends View {
     }
 
     private void init() {
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textSize = getResources().getDimensionPixelSize(R.dimen.text_size); // Define this in your dimens.xml
-        paint.setTextSize(textSize);
-        paint.setColor(Color.WHITE);
+        // Initialize line paint for the diagonal line
+        linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        linePaint.setColor(Color.parseColor("#475A7D"));
+        linePaint.setStyle(Paint.Style.STROKE);
+        linePaint.setStrokeWidth(5);
+
+        // Initialize text paint for the sums
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textSize = getResources().getDimensionPixelSize(R.dimen.text_size);
+        textPaint.setTextSize(textSize);
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
     }
 
     @Override
@@ -33,16 +43,14 @@ public class DiagonalSumCellView extends View {
         super.onDraw(canvas);
 
         // Draw the diagonal line
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawLine(0, 0, getWidth(), getHeight(), paint);
+        canvas.drawLine(0, 0, getWidth(), getHeight(), linePaint);
 
-        // Draw the vertical sum
-        paint.setStyle(Paint.Style.FILL);
-        float verticalTextWidth = paint.measureText(verticalSum);
-        canvas.drawText(verticalSum, (getWidth() - verticalTextWidth) / 2, textSize, paint);
+        // Draw the vertical sum using textPaint
+        float verticalTextWidth = textPaint.measureText(verticalSum);
+        canvas.drawText(verticalSum, (getWidth() - verticalTextWidth) / 2, textSize, textPaint);
 
-        // Draw the horizontal sum
+        // Draw the horizontal sum using textPaint
         float horizontalTextHeight = textSize + (getHeight() - textSize) / 2;
-        canvas.drawText(horizontalSum, textSize / 2, horizontalTextHeight, paint);
+        canvas.drawText(horizontalSum, textSize / 2, horizontalTextHeight, textPaint);
     }
 }

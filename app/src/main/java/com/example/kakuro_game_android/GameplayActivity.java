@@ -34,8 +34,8 @@ public class GameplayActivity extends AppCompatActivity {
 
             for (int j = 0; j < cells.length; j++) {
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                params.width = 0; // Use weight
-                params.height = 0; // Use weight
+                params.width = 0;
+                params.height = 0;
                 params.rowSpec = GridLayout.spec(i, 1f);
                 params.columnSpec = GridLayout.spec(j, 1f);
                 params.setMargins(1, 1, 1, 1); // For cell borders
@@ -45,7 +45,7 @@ public class GameplayActivity extends AppCompatActivity {
                     // Null cell, set background color to black
                     TextView cellView = new TextView(this);
                     cellView.setLayoutParams(params);
-                    cellView.setBackgroundColor(Color.BLACK);
+                    cellView.setBackgroundResource(R.drawable.null_cell_background);
                     gridLayout.addView(cellView);
                 } else if (cellData.contains(".")) {
                     // Sum cell, extract and set the sums
@@ -54,13 +54,15 @@ public class GameplayActivity extends AppCompatActivity {
                     String hSum = parts[1].equals("hSum") ? "" : parts[1];
 
                     DiagonalSumCellView sumCellView = new DiagonalSumCellView(this, hSum, vSum);
+
+                    sumCellView.setBackgroundResource(R.drawable.null_cell_background);
                     sumCellView.setLayoutParams(params);
                     gridLayout.addView(sumCellView); // Make sure to add sumCellView, not cellView
                 } else if (cellData.equals("_")) {
                     // Empty cell, set background color to white and make it clickable
                     TextView cellView = new TextView(this);
                     cellView.setLayoutParams(params);
-                    cellView.setBackgroundColor(Color.WHITE);
+                    cellView.setBackgroundResource(R.drawable.cell_background);
                     // You can set an OnClickListener here to handle user input
                     gridLayout.addView(cellView);
                 }
