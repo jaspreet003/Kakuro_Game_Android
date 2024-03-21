@@ -34,40 +34,38 @@ public class GameplayActivity extends AppCompatActivity {
 
             for (int j = 0; j < cells.length; j++) {
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                params.width = GridLayout.LayoutParams.WRAP_CONTENT;
-                params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+                params.width = 0; // Use weight
+                params.height = 0; // Use weight
                 params.rowSpec = GridLayout.spec(i, 1f);
                 params.columnSpec = GridLayout.spec(j, 1f);
-
                 params.setMargins(1, 1, 1, 1); // For cell borders
-
-                TextView cellView = new TextView(this);
-                cellView.setLayoutParams(params);
-                cellView.setGravity(Gravity.CENTER);
-                cellView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Set your desired size
-                cellView.setTypeface(cellView.getTypeface(), Typeface.BOLD); // Optional: make text bold
 
                 String cellData = cells[j];
                 if (cellData.equals("#")) {
                     // Null cell, set background color to black
+                    TextView cellView = new TextView(this);
+                    cellView.setLayoutParams(params);
                     cellView.setBackgroundColor(Color.BLACK);
+                    gridLayout.addView(cellView);
                 } else if (cellData.contains(".")) {
                     // Sum cell, extract and set the sums
                     String[] parts = cellData.split("\\.");
                     String vSum = parts[0].equals("vSum") ? "" : parts[0];
                     String hSum = parts[1].equals("hSum") ? "" : parts[1];
 
-                    DiagonalSumCellView sumCellView = new DiagonalSumCellView(this, vSum, hSum);
+                    DiagonalSumCellView sumCellView = new DiagonalSumCellView(this, hSum, vSum);
                     sumCellView.setLayoutParams(params);
-                    cellView.setBackgroundColor(Color.LTGRAY);
+                    gridLayout.addView(sumCellView); // Make sure to add sumCellView, not cellView
                 } else if (cellData.equals("_")) {
                     // Empty cell, set background color to white and make it clickable
+                    TextView cellView = new TextView(this);
+                    cellView.setLayoutParams(params);
                     cellView.setBackgroundColor(Color.WHITE);
                     // You can set an OnClickListener here to handle user input
+                    gridLayout.addView(cellView);
                 }
-
-                gridLayout.addView(cellView);
             }
         }
     }
+
 }

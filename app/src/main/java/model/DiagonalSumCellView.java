@@ -25,7 +25,7 @@ public class DiagonalSumCellView extends View {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textSize = getResources().getDimensionPixelSize(R.dimen.text_size); // Define this in your dimens.xml
         paint.setTextSize(textSize);
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
     }
 
     @Override
