@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import model.DiagonalSumCellView;
 import model.Grid;
 
 public class GameplayActivity extends AppCompatActivity {
@@ -55,10 +56,10 @@ public class GameplayActivity extends AppCompatActivity {
                     String[] parts = cellData.split("\\.");
                     String vSum = parts[0].equals("vSum") ? "" : parts[0];
                     String hSum = parts[1].equals("hSum") ? "" : parts[1];
-                    // You need a way to display vSum and hSum diagonally divided
-                    // Here you might want to use a custom drawable or a custom TextView
-                    cellView.setText(String.format("%s|%s", vSum, hSum)); // Temporary representation
-                    cellView.setBackgroundColor(Color.LTGRAY); // Sum cells with a different color
+
+                    DiagonalSumCellView sumCellView = new DiagonalSumCellView(this, vSum, hSum);
+                    sumCellView.setLayoutParams(params);
+                    cellView.setBackgroundColor(Color.LTGRAY);
                 } else if (cellData.equals("_")) {
                     // Empty cell, set background color to white and make it clickable
                     cellView.setBackgroundColor(Color.WHITE);
