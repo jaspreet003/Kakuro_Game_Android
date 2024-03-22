@@ -15,13 +15,13 @@ import model.DiagonalSumCellView;
 import model.Grid;
 
 public class GameplayActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private View previousCell = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameplay);
 
-        Grid kakuroGrid = new Grid(); // Your constructor that sets up the grid
+        Grid kakuroGrid = new Grid();
         generatePuzzleGrid(kakuroGrid);
     }
 
@@ -43,7 +43,7 @@ public class GameplayActivity extends AppCompatActivity implements View.OnClickL
 
                 String cellData = cells[j];
                 if (cellData.equals("#")) {
-                    // Null cell, set background color to black
+                    // Null cell
                     TextView cellView = new TextView(this);
                     cellView.setLayoutParams(params);
                     cellView.setBackgroundResource(R.drawable.null_cell_background);
@@ -58,15 +58,16 @@ public class GameplayActivity extends AppCompatActivity implements View.OnClickL
 
                     sumCellView.setBackgroundResource(R.drawable.null_cell_background);
                     sumCellView.setLayoutParams(params);
-                    gridLayout.addView(sumCellView); // Make sure to add sumCellView, not cellView
+                    gridLayout.addView(sumCellView);
                 } else if (cellData.equals("_")) {
-                    // Empty cell, set background color to white and make it clickable
+                    // Empty cell
                     TextView cellView = new TextView(this);
                     cellView.setLayoutParams(params);
                     cellView.setBackgroundResource(R.drawable.cell_background);
 
                     cellView.setOnClickListener(this);
-                    // You can set an OnClickListener here to handle user input
+
+                    cellView.setTag(R.drawable.cell_background);
                     gridLayout.addView(cellView);
                 }
             }
@@ -75,7 +76,15 @@ public class GameplayActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        v.setBackgroundColor(Color.GREEN);
+
+        if (previousCell != null && previousCell != v) {
+            int backgroundResource = (Integer) previousCell.getTag();
+            previousCell.setBackgroundResource(backgroundResource);
+        }
+
+        v.setBackgroundColor(Color.GREEN); // Highlight the current cell
+
+        previousCell = v;
     }
 
 }
