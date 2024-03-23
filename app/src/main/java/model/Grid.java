@@ -13,7 +13,9 @@ public class Grid {
         this.gridId = 1;
         this.rows = 5;
         this.columns = 5;
-        this.data = "#,11.hSum,24.hSum,#,#;vSum.16,_,_,17.hSum,#;vSum.13,_,_,_,17.hSum;#,vSum.24,_,_,_;#,#,vSum.16,_,_;";
+//        this.data = "#,11.hSum,24.hSum,#,#;vSum.16,_,_,17.hSum,#;vSum.13,_,_,_,17.hSum;#,vSum.24,_,_,_;#,#,vSum.16,_,_;";
+        this.data = "#,11.hSum,24.hSum,#,#;vSum.16,_,_,17.hSum,#;vSum.13,_,_,_,17.hSum;#,vSum.24,_,_,_;#,#,vSum.16,_,_;#,11.hSum,24.hSum,#,#;vSum.16,_,_,17.hSum,#;";
+
         this.answerString = "";
     }
 
