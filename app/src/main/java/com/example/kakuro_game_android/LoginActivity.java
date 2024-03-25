@@ -71,10 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), GameplayActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), GameMenuActivity.class);
                                     startActivity(intent);
                                     finish();
-
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();

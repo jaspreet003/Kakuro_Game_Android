@@ -13,6 +13,7 @@ public class Player {
     private String accountId; // This is the Firebase Authentication User ID
     private String playerId;
     private String playerName;
+    private GamePlay previousGame;
 
 
     // Default constructor is required for Firebase
@@ -20,10 +21,17 @@ public class Player {
     }
 
     // Constructor with parameters
+
     public Player(String accountId, String playerName, String playerId) {
         this.accountId = accountId;
         this.playerName = playerName;
+        this.playerId = playerId;}
+
+    public Player(String accountId, String playerName, String playerId, GamePlay previousGame) {
+        this.accountId = accountId;
+        this.playerName = playerName;
         this.playerId = playerId;
+        this.previousGame = previousGame;
     }
 
     // Getters and Setters
@@ -49,6 +57,14 @@ public class Player {
 
     public void setPlayerId(String playerId) {
         this.playerId = playerId;
+    }
+
+    public GamePlay getPreviousGame() {
+        return previousGame;
+    }
+
+    public void setPreviousGame(GamePlay previousGame) {
+        this.previousGame = previousGame;
     }
 
     // Static method to create and save a new player
