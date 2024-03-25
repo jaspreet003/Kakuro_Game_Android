@@ -13,9 +13,17 @@
         android:theme="@style/Theme.Kakuro_Game_Android"
         tools:targetApi="31">
         <activity
+            android:name=".GameMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LevelSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GamePlay"
+            android:exported="false" />
+        <activity
             android:name=".GameplayActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
