@@ -4,6 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameMenuActivity">
+    tools:context=".GameMenuActivity"
+    android:background="@drawable/background_img">
+
+    <!-- Logo Image -->
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/menu_layout"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Logo"
+        android:background="@android:color/transparent"
+        />
+    <!-- Login Layout -->
+    <LinearLayout
+        android:id="@+id/menu_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintTop_toBottomOf="@id/logo_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- How to Play Button -->
+        <Button
+            android:id="@+id/howToPlay_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="HOW TO PLAY"
+            android:background="@drawable/button_shape"
+            android:layout_marginTop="30dp"
+            />
+
+        <!-- Previous Game Button -->
+        <Button
+            android:id="@+id/previousGame_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="PREVIOUS GAME"
+            android:background="@drawable/button_shape"
+            />
+        <!-- New Game Button -->
+        <Button
+            android:id="@+id/newGame_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="NEW GAME"
+            android:background="@drawable/button_shape"
+            />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
