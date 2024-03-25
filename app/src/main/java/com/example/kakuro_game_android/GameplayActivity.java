@@ -20,7 +20,7 @@ import model.Grid;
 
 public class GameplayActivity extends AppCompatActivity implements View.OnClickListener {
     private View previousCell = null;
-//    private TextView selectedNumberTextView = null;
+    private TextView selectedNumberTextView = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +28,8 @@ public class GameplayActivity extends AppCompatActivity implements View.OnClickL
 
         Grid kakuroGrid = new Grid();
         generatePuzzleGrid(kakuroGrid);
+
+        setupNumberSelection();
 
     }
 
@@ -68,39 +70,55 @@ public class GameplayActivity extends AppCompatActivity implements View.OnClickL
                     gridLayout.addView(sumCellView);
                 } else if (cellData.equals("_")) {
                     // Empty cell
-                    EditText cellView = new EditText(this);
-                    cellView.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    TextView cellView = new TextView(this);
                     cellView.setLayoutParams(params);
                     cellView.setBackgroundResource(R.drawable.cell_background);
+                    cellView.setGravity(Gravity.CENTER);
+                    cellView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                    cellView.setTypeface(null, Typeface.BOLD);
+                    cellView.setTextColor(Color.BLACK);
 
                     cellView.setOnClickListener(this);
-
-                    cellView.setTag(R.drawable.cell_background);
+                    cellView.setTag(R.drawable.cell_background); // Use tag to store the original background for easy reset
                     gridLayout.addView(cellView);
                 }
             }
         }
     }
 
-/*    private void setupNumberSelection() {
+    private void setupNumberSelection() {
         int[] numberIds = {R.id.tv1, R.id.tv2, R.id.tv3, R.id.tv4, R.id.tv5, R.id.tv6, R.id.tv7, R.id.tv8, R.id.tv9};
         for (int id : numberIds) {
             TextView numberView = findViewById(id);
             numberView.setOnClickListener(this);
         }
-    }*/
+    }
 
     @Override
     public void onClick(View v) {
+        if (v.getTag() instanceof Integer) { // Assuming all grid cells have a drawable tag
+            handleCellClick(v); // This is a cell in the grid
+        } else {
+            handleNumberSelection((TextView) v); // This is a number in the palette
+        }
+    }
 
-        if (previousCell != null && previousCell != v) {
+    private void handleCellClick(View cellView) {
+        if (previousCell != null && previousCell != cellView) {
             int backgroundResource = (Integer) previousCell.getTag();
             previousCell.setBackgroundResource(backgroundResource);
         }
+        cellView.setBackgroundColor(Color.GREEN); // Highlight the current cell
+        previousCell = cellView;
+    }
 
-        v.setBackgroundColor(Color.GREEN); // Highlight the current cell
 
-        previousCell = v;
+    private void handleNumberSelection(TextView numberTextView) {
+        if (previousCell != null && previousCell.getTag() instanceof Integer) { // Again, checking if it's a cell in the grid
+            ((TextView) previousCell).setText(numberTextView.getText().toString());
+        } else {
+            Toast.makeText(this, "Please select a cell to fill.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
